@@ -31,6 +31,19 @@ docker_compose:
 
   enable: true
 
+  # // Config.json data starts here
+  docker_config_json:
+    confdir: "/root/.docker" # Directory where config.json file is stored
+
+    # The config definition itself - see https://docs.docker.com/engine/reference/commandline/cli/#configjson-properties for available options
+    config:
+      auths:
+        "registry.local":
+          auth: <Insert your auth data here - normally it is a token >
+      HttpHeaders:
+        "User-Agent": "Docker-Client/19.03.12 (linux)"
+  # /* END BLOCK */
+
   config:
     home_resources:
       version: '2'
@@ -49,4 +62,19 @@ services:
     container_name: memcached
 ```
 
-also the corresponding docker-composee@home_resources.service will be enabled.
+Also it will produce /root/.docker/config.json file in the following format:
+```json
+[root@dockertest ~]# cat /root/.docker/config.json | jq
+{
+  "auths": {
+    "registry.local": {
+      "auth": "<Insert your auth data here - normally it is a token >"
+    }
+  },
+  "HttpHeaders": {
+    "User-Agent": "Docker-Client/19.03.12 (linux)"
+  }
+}
+```
+
+also the corresponding docker-compose@home_resources.service will be enabled.
