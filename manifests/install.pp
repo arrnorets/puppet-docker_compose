@@ -1,5 +1,5 @@
-class docker_compose::install ( $docker_user, $docker_compose_pkg_version, $docker_pkg_version ) {
-    package { "docker-ce" :
+class docker_compose::install ( $docker_user, $docker_compose_pkg_version, $docker_pkg_name, $docker_pkg_version ) {
+    package { "${docker_pkg_name}" :
         ensure => $docker_pkg_version,
     }
 
