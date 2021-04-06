@@ -1,5 +1,10 @@
 class docker_compose::config ( $docker_user, $compose_configs, $is_enabled ) {
-    
+
+    service { "docker":
+        ensure => $is_enabled,
+        enable => $is_enabled
+    } 
+
     $composes = keys( $compose_configs )
     $composes.each | String $c | {
         file { "/opt/docker-compose/${c}":
