@@ -22,7 +22,7 @@ class docker_compose::config ( $docker_user, $compose_configs, $is_enabled ) {
 	service { "docker-compose@${c}":
             ensure => $is_enabled,
             enable => $is_enabled,
-	    restart => 'cd /opt/docker-compose/${c} && docker-compose up -d',
+	    restart => "cd /opt/docker-compose/${c} && docker-compose up -d",
 	    require => Class[ "docker_compose::install" ],
 	}
 
